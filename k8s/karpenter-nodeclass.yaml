@@ -14,4 +14,5 @@ spec:
     - id: subnet-06dd8ab7df7c71555
 
   securityGroupSelectorTerms:
+    - id: sg-0c03e71a6e2c0f60a
     - id: sg-0d0c5f7fca234a3af

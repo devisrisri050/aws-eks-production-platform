@@ -37,6 +37,14 @@ spec:
             - m
             - c
 
+        - key: karpenter.k8s.aws/instance-size
+          operator: In
+          values:
+            - medium
+            - large
+            - xlarge
+            - 2xlarge
+
         - key: node.kubernetes.io/instance-generation
           operator: Gt
           values:
@@ -48,3 +56,4 @@ spec:
   disruption:
     consolidationPolicy: WhenEmptyOrUnderutilized
     consolidateAfter: 30s
+

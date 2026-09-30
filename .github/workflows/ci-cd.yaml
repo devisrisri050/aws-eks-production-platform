@@ -7,7 +7,7 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
 
 env:
   AWS_REGION: ap-south-1
@@ -58,3 +58,17 @@ jobs:
         run: |
           docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
           docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
+
+      - name: Update GitOps image
+        run: |
+          sed -i "s|^\(\s*image:\s*866705901512\.dkr\.ecr\.ap-south-1\.amazonaws\.com/eks-devops-app:\).*|\1${IMAGE_TAG}|" gitops/prod/devops-app/deployment.yaml
+          sed -i "0,/value: \"1.0.0\"/s//value: \"${IMAGE_TAG}\"/" gitops/prod/devops-app/deployment.yaml
+
+      - name: Commit GitOps change
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gitops/prod/devops-app/deployment.yaml
+          git diff --cached --quiet && exit 0
+          git commit -m "Update GitOps image to ${IMAGE_TAG}"
+          git push
