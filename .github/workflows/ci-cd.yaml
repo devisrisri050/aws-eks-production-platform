@@ -1,4 +1,4 @@
-name: CI - AWS OIDC Test
+name: CI - Build, Scan and Push
 
 on:
   push:
@@ -11,22 +11,25 @@ permissions:
 
 env:
   AWS_REGION: ap-south-1
+  AWS_ACCOUNT_ID: "866705901512"
   ECR_REPOSITORY: eks-devops-app
+  ECR_REGISTRY: 866705901512.dkr.ecr.ap-south-1.amazonaws.com
+  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
-  aws-oidc-test:
+  build-scan-push:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.1
 
       - name: Configure AWS credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
           role-to-assume: arn:aws:iam::866705901512:role/GitHubActionsEKSDevOpsRole
           aws-region: ${{ env.AWS_REGION }}
-          role-session-name: github-actions-oidc
+          role-session-name: github-actions-ci
           allowed-account-ids: 866705901512
 
       - name: Verify AWS identity
@@ -34,3 +37,24 @@ jobs:
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}" \
+            -t "${ECR_REGISTRY}/${ECR_REPOSITORY}:latest" \
+            ./app
+
+      - name: Scan image with Trivy
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
+          format: table
+          severity: CRITICAL,HIGH
+          ignore-unfixed: true
+          exit-code: "1"
+
+      - name: Push image to ECR
+        run: |
+          docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
