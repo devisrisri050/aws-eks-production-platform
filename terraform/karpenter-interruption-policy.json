@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowInterruptionQueueActions",
+      "Effect": "Allow",
+      "Resource": "arn:aws:sqs:ap-south-1:866705901512:eks-devops-platform-cluster",
+      "Action": [
+        "sqs:DeleteMessage",
+        "sqs:GetQueueUrl",
+        "sqs:ReceiveMessage"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowZonalShiftActions",
+      "Effect": "Allow",
+      "Resource": "*",
+      "Action": [
+        "ec2:DescribeAvailabilityZones",
+        "arc-zonal-shift:CreateManagedResourcePresignature"
+      ]
+    }
+  ]
+}

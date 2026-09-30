@@ -1,0 +1,42 @@
+﻿# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+
+# Terraform secrets / local files
+*.tfvars
+*.tfvars.json
+
+# Kubernetes / local secrets
+secret.json
+*.secret.yaml
+*.secret.yml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Docker
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Environment files
+.env
+.env.*
+
+# Local tools
+*.tmp
+
+# Local generated state/test files
+terraform/current-state.json
+k8s/karpenter-test.yaml

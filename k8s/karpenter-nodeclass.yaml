@@ -1,0 +1,17 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: default
+spec:
+  role: KarpenterNodeRole-eks-devops-platform-cluster
+
+  amiSelectorTerms:
+    - alias: al2023@latest
+
+  subnetSelectorTerms:
+    - id: subnet-0ab78124b63fc5803
+    - id: subnet-00d56f4ced1b7fd2c
+    - id: subnet-06dd8ab7df7c71555
+
+  securityGroupSelectorTerms:
+    - id: sg-0d0c5f7fca234a3af

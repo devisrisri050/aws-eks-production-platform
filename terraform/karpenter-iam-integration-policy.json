@@ -1,0 +1,77 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowPassingInstanceRole",
+      "Effect": "Allow",
+      "Resource": "arn:aws:iam::866705901512:role/KarpenterNodeRole-eks-devops-platform-cluster",
+      "Action": "iam:PassRole",
+      "Condition": {
+        "StringEquals": {
+          "iam:PassedToService": [
+            "ec2.amazonaws.com",
+            "ec2.amazonaws.com.cn"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "AllowScopedInstanceProfileCreationActions",
+      "Effect": "Allow",
+      "Resource": "arn:aws:iam::866705901512:instance-profile/*",
+      "Action": [
+        "iam:CreateInstanceProfile"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestTag/kubernetes.io/cluster/eks-devops-platform-cluster": "owned",
+          "aws:RequestTag/eks:eks-cluster-name": "eks-devops-platform-cluster",
+          "aws:RequestTag/topology.kubernetes.io/region": "ap-south-1"
+        },
+        "StringLike": {
+          "aws:RequestTag/karpenter.k8s.aws/ec2nodeclass": "*"
+        }
+      }
+    },
+    {
+      "Sid": "AllowScopedInstanceProfileTagActions",
+      "Effect": "Allow",
+      "Resource": "arn:aws:iam::866705901512:instance-profile/*",
+      "Action": [
+        "iam:TagInstanceProfile"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/kubernetes.io/cluster/eks-devops-platform-cluster": "owned",
+          "aws:ResourceTag/topology.kubernetes.io/region": "ap-south-1",
+          "aws:RequestTag/kubernetes.io/cluster/eks-devops-platform-cluster": "owned",
+          "aws:RequestTag/eks:eks-cluster-name": "eks-devops-platform-cluster",
+          "aws:RequestTag/topology.kubernetes.io/region": "ap-south-1"
+        },
+        "StringLike": {
+          "aws:ResourceTag/karpenter.k8s.aws/ec2nodeclass": "*",
+          "aws:RequestTag/karpenter.k8s.aws/ec2nodeclass": "*"
+        }
+      }
+    },
+    {
+      "Sid": "AllowScopedInstanceProfileActions",
+      "Effect": "Allow",
+      "Resource": "arn:aws:iam::866705901512:instance-profile/*",
+      "Action": [
+        "iam:AddRoleToInstanceProfile",
+        "iam:RemoveRoleFromInstanceProfile",
+        "iam:DeleteInstanceProfile"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/kubernetes.io/cluster/eks-devops-platform-cluster": "owned",
+          "aws:ResourceTag/topology.kubernetes.io/region": "ap-south-1"
+        },
+        "StringLike": {
+          "aws:ResourceTag/karpenter.k8s.aws/ec2nodeclass": "*"
+        }
+      }
+    }
+  ]
+}

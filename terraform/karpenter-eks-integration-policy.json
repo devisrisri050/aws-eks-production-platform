@@ -1,0 +1,13 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowDescribeCluster",
+      "Effect": "Allow",
+      "Resource": "arn:aws:eks:ap-south-1:866705901512:cluster/eks-devops-platform-cluster",
+      "Action": [
+        "eks:DescribeCluster"
+      ]
+    }
+  ]
+}

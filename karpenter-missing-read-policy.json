@@ -1,0 +1,29 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowInstanceProfileReadActions",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetInstanceProfile"
+      ],
+      "Resource": "arn:aws:iam::866705901512:instance-profile/*"
+    },
+    {
+      "Sid": "AllowInstanceProfileListAction",
+      "Effect": "Allow",
+      "Action": [
+        "iam:ListInstanceProfiles"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "AllowPricingReadActions",
+      "Effect": "Allow",
+      "Action": [
+        "pricing:GetProducts"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
