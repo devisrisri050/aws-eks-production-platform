@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: eks-devops-app
-          image: 866705901512.dkr.ecr.ap-south-1.amazonaws.com/eks-devops-app:1.0
+          image: 866705901512.dkr.ecr.ap-south-1.amazonaws.com/eks-devops-app:0d66c5226b206e26d29dc308a46ba9e7e7e1e491
           imagePullPolicy: IfNotPresent
 
           ports:
@@ -39,7 +39,7 @@ spec:
               value: "prod"
 
             - name: APP_VERSION
-              value: "1.0.0"
+              value: "0d66c5226b206e26d29dc308a46ba9e7e7e1e491"
 
             - name: APP_SECRET
               valueFrom:
