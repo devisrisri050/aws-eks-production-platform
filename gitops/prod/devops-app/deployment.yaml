@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: eks-devops-app
-          image: 866705901512.dkr.ecr.ap-south-1.amazonaws.com/eks-devops-app:0d66c5226b206e26d29dc308a46ba9e7e7e1e491
+          image: 866705901512.dkr.ecr.ap-south-1.amazonaws.com/eks-devops-app:e32f068ed1f9ec868fc6747723cf6f24e8afbc08
           imagePullPolicy: IfNotPresent
 
           ports:
