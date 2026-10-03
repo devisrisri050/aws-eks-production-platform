@@ -4,6 +4,10 @@
 
 Production-style AWS EKS DevOps platform using Terraform, GitHub Actions, Amazon ECR, Argo CD, Karpenter, AWS Load Balancer Controller, External Secrets, Prometheus/Grafana, and Amazon CloudWatch Observability.
 
+## 🏗️ Architecture
+
+![AWS EKS DevOps Architecture](screenshots/aws-eks-architecture.png)
+
 ## Environment
 
 - AWS Region: ap-south-1
