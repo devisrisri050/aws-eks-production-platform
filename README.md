@@ -8,6 +8,13 @@ Production-style AWS EKS DevOps platform using Terraform, GitHub Actions, Amazon
 
 ![AWS EKS DevOps Architecture](screenshots/aws-eks-architecture.png)
 
+## Application Stack
+
+- Python
+- Flask
+- Gunicorn
+- Docker
+  
 ## Environment
 
 - AWS Region: ap-south-1
